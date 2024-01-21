@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class GameInput : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	private PlayerInputActions inputActions;
+	private void Awake()
+	{
+		inputActions = new PlayerInputActions();
+		inputActions.Enable();
+	}
+
+	public Vector2 GetMovementVectorNormalized()
+	{
+
+		Vector2 inputVector = inputActions.Player.Move.ReadValue<Vector2>();
+
+		Debug.Log(inputVector);
+		inputVector = inputVector.normalized;
+
+		return inputVector;
+	}
 }
