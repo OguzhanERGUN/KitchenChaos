@@ -17,6 +17,13 @@ public class Player : MonoBehaviour
 	private Vector3 lastInteractDirection;
 
 
+	private void Start()
+	{
+		gameInput.OnInteractAction += GameInput_OnInteractAction;
+	}
+
+	
+
 	void Update()
 	{
 		HandleMovement();
@@ -42,19 +49,36 @@ public class Player : MonoBehaviour
 
 		float interactDistance = 2f;
 
-		if (Physics.Raycast(transform.position, moveDir, out RaycastHit raycastHit, interactDistance,countersLayerMask))
+		if (Physics.Raycast(transform.position, lastInteractDirection, out RaycastHit raycastHit, interactDistance,countersLayerMask))
+		{
+			if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
+			{
+			}
+		}
+	}
+
+	private void GameInput_OnInteractAction(object sender, System.EventArgs e)
+	{
+		Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+
+		Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
+
+		if (moveDir != Vector3.zero)
+		{
+			lastInteractDirection = moveDir;
+		}
+
+		float interactDistance = 2f;
+
+		if (Physics.Raycast(transform.position, lastInteractDirection, out RaycastHit raycastHit, interactDistance, countersLayerMask))
 		{
 			if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
 			{
 				clearCounter.Interact();
 			}
-			Debug.Log(raycastHit.transform.name);
-		}
-		else
-		{
-			Debug.Log("-");
 		}
 	}
+
 	private void HandleMovement()
 	{
 
@@ -87,18 +111,9 @@ public class Player : MonoBehaviour
 
 					moveDir = moveDirZ;
 				}
-				else
-				{
 
-				}
 			}
 		}
-
-
-
-
-
-
 		if (canMove) transform.position += moveDir * Time.deltaTime * moveSpeed;
 
 		if (moveDir != Vector3.zero) { isWalking = true; }
@@ -106,7 +121,6 @@ public class Player : MonoBehaviour
 
 		transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * roationSpeed);
 
-		Debug.Log(inputVector);
 	}
 
 }
