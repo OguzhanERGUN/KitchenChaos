@@ -1,9 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
+    public static Player Instance { get; private set; }
+
+
+
+    public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
+	public class OnSelectedCounterChangedEventArgs : EventArgs
+	{
+		public ClearCounter selectedCounter;
+	}
+
+
+	private void Awake()
+	{
+		if (Instance != null) { Debug.LogError("There is more than one player "); }
+		Instance = this;
+	}
+
 	float moveSpeed = 7f;
 	float roationSpeed = 10f;
 	float playerRadius = 0.7f;
@@ -56,20 +75,21 @@ public class Player : MonoBehaviour
 			{
 				if (selectedCounter != clearCounter)
 				{
-					selectedCounter = clearCounter;
+					SetSelectedCounter(clearCounter);
 				}
 			}
 			else
 			{
-				selectedCounter = null;
+				SetSelectedCounter(null);
+
 			}
 		}
 		else
 		{
-			selectedCounter = null;
+			SetSelectedCounter(null);
+
 		}
 
-		Debug.Log(selectedCounter);
 	}
 
 	private void GameInput_OnInteractAction(object sender, System.EventArgs e)
@@ -122,6 +142,15 @@ public class Player : MonoBehaviour
 
 		transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * roationSpeed);
 
+	}
+	private void SetSelectedCounter(ClearCounter selectedCounter)
+	{
+		this.selectedCounter = selectedCounter;
+
+		OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
+		{
+			selectedCounter = selectedCounter
+		});
 	}
 
 }
