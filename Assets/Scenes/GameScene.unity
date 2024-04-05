@@ -689,6 +689,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &400591010 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3033652847929548242, guid: 17471536f97eb19429fccbf4f30812bd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1928266180}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7849bfb0f12714a4e8d04c696d756602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,6 +1083,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3033652847929548242, guid: 17471536f97eb19429fccbf4f30812bd,
+        type: 3}
+      propertyPath: tomatoPrefab
+      value: 
+      objectReference: {fileID: 11400000, guid: f5c388cdee423e944a9bbfba896f6146,
+        type: 2}
     - target: {fileID: 9191686363099541573, guid: 17471536f97eb19429fccbf4f30812bd,
         type: 3}
       propertyPath: m_RootOrder
@@ -1149,6 +1167,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter
       objectReference: {fileID: 0}
+    - target: {fileID: 3033652847929548242, guid: 17471536f97eb19429fccbf4f30812bd,
+        type: 3}
+      propertyPath: testing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3033652847929548242, guid: 17471536f97eb19429fccbf4f30812bd,
+        type: 3}
+      propertyPath: secondClearCounter
+      value: 
+      objectReference: {fileID: 400591010}
     - target: {fileID: 9191686363099541573, guid: 17471536f97eb19429fccbf4f30812bd,
         type: 3}
       propertyPath: m_RootOrder
